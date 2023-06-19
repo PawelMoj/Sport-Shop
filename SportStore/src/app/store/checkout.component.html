@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="bg-dark text-white p-2">>
+            <span class="navbar-brand ml-2">Sklep Sportowy</span>
+        </div>
+    </div>
+    <div *ngIf="orderSent" class="m-2 text-center">
+        <h2>Dziękujemyu za złożenie zamówienia</h2>
+        <button class="btn btn-primary" routerLink="/store">Powrót do sklepu</button>
+    </div>
+
+    <!-- formularz -->
+    <form *ngIf="!orderSent" #form="ngForm" (ngSubmit)="submitOrder(form)" class="m-2" novalidate>
+        
+        <div class="form-group">
+            <label class="form-label">Imie i nazwisko</label>
+            <input class="form-control" name="name" #name="ngModel" [(ngModel)]="order.name" required/>
+            <span *ngIf="submitted && name.invalid" class="text-danger">Podaj imie i nazwisko</span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Adres</label>
+            <input class="form-control" name="adress" #adress="ngModel" [(ngModel)]="order.adress" required/>
+            <span *ngIf="submitted && adress.invalid" class="text-danger">Podaj adres</span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Zip</label>
+            <input class="form-control" name="zip" #zip="ngModel" [(ngModel)]="order.zip" required/>
+            <span name="zip" *ngIf="submitted && zip.invalid" class="text-danger">Podaj zip</span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Miasto</label>
+            <input class="form-control" name="adress" #city="ngModel" [(ngModel)]="order.city" required/>
+            <span *ngIf="submitted && city.invalid" class="text-danger">Podaj Miasto</span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Kraj</label>
+            <input class="form-control" #country="ngModel" [(ngModel)]="order.country" required/>
+            <span *ngIf="submitted && country.invalid" class="text-danger">Podaj Kraj</span>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-secondary m-1" routerLink="/cart">Powrót do zamówienia</button>  
+            <button class="btn btn-primary m-1" type="submit">Złóż zamówienia</button>  
+        </div>
+    </form>
+</div>

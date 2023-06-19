@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <!-- nagłówek -->
+    <div class="row">
+        <div class="bg-dark text-white p-2">
+            <span class="navbar-brand ml-2"> Sklep sportowy
+                <div class="float-end">
+                    <cart-summary></cart-summary>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="row text-white">
+        <div class="col-3 bg-dark p-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-primary" (click)="changeCategory()">
+                    Wszystkie    
+                </button>
+                <button *ngFor="let cat of categories"
+                [class.active]="cat == selectedCategory"
+                (click) = "changeCategory(cat)">
+                    {{ cat }}
+                </button>
+                <button class="btn btn-danger mt-5" routerLink="/admin">Admin</button>
+            </div>
+        </div>
+
+        <div class="col-9 bg-light p-2">
+            <!-- wysiwetlanie produktow -->
+            <div class=" p-2 text-dark">
+                <div *ngFor="let product of products" class="card m-1 p-1 bg-light">
+                    <h4>
+                        {{product.name}}
+                        <span class="badge rounded-pill bg-primary" style="float:right">
+                            {{product.price | currency:"PLN":"symbol":undefined:"pl-PL"}}
+                        </span>
+                    </h4>
+                    <div class="">
+                        {{product.description}}
+                        <button (click)="addProductToCart(product)" class="btn btn-success btn-sm float-end">
+                            Dodaj do koszyka
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- stronnicowanie -->
+            <div class="form-inline float-start mr-1">
+                <select class="form-select" [value]="productsPerPage" (change)="changePageSize($any($event).target.value)">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                </select>
+            </div>
+
+            <div class="btn-group form-inline float-end mr-1">
+                <button *ngFor="let page of pageNumbers" (click)="changePage(page)" 
+                class="btn btn-outline-primary" [class.active]="page == selectedPage">
+                    {{page}}
+                </button>
+            </div>
+            
+        </div>
+
+
+    </div>
+</div>
